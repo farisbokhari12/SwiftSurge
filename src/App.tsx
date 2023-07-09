@@ -1,7 +1,7 @@
 import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact, IonContent, IonButton } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
-import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from "@awesome-cordova-plugins/background-geolocation/ngx"
+import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from "@awesome-cordova-plugins/background-geolocation"
 import Menu from './components/Menu';
 import Page from './pages/Page';
 
@@ -35,17 +35,16 @@ const config: BackgroundGeolocationConfig = {
 };
 
 const App: React.FC = () => {
-    const background = new BackgroundGeolocation();
     
-    background.configure(config);
+    BackgroundGeolocation.configure(config);
 
-    background.on(BackgroundGeolocationEvents.location).subscribe((location: BackgroundGeolocationResponse) => {
+    BackgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location: BackgroundGeolocationResponse) => {
       console.log(location);
 
-      background.finish();
+      BackgroundGeolocation.finish();
     })
 
-    background.start();
+    BackgroundGeolocation.start();
 
   return (
     <IonApp>

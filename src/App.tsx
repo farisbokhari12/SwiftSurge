@@ -1,7 +1,7 @@
 import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact, IonContent, IonButton } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
-import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from "@awesome-cordova-plugins/background-geolocation"
+import { Geolocation } from "@awesome-cordova-plugins/geolocation";
 import Menu from './components/Menu';
 import Page from './pages/Page';
 
@@ -23,30 +23,15 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
-const config: BackgroundGeolocationConfig = {
-  desiredAccuracy: 10,
-  stationaryRadius: 20,
-  distanceFilter: 30,
-  debug: true, //  enable this hear sounds for background-geolocation life-cycle.
-  stopOnTerminate: false, // enable this to clear background location settings when the app terminates
-};
 
 const App: React.FC = () => {
-    
-    BackgroundGeolocation.configure(config);
 
-    BackgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location: BackgroundGeolocationResponse) => {
-      console.log(location);
 
-      BackgroundGeolocation.finish();
-    })
-
-    BackgroundGeolocation.start();
-
-  return (
+    return (
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
